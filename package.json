@@ -1,5 +1,5 @@
 {
-  "name": "@lampix/library-name",
+  "name": "@lampix/screensaver",
   "version": "0.1.0",
   "description": "",
   "main": "lib/cjs/index.js",
@@ -39,5 +39,8 @@
       "tslint"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/animejs": "2.0.0",
+    "animejs": "2.2.0"
+  }
 }
