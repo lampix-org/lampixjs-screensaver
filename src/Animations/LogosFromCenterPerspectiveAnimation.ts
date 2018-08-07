@@ -7,21 +7,21 @@ import { IAnimation } from 'types';
 
 class LogosFromCenterPerspectiveAnimation implements IAnimation {
 
-  isLoaded:Boolean = false;
+  isLoaded: boolean = false;
   private parent: HTMLElement;
   private numberOfItems: number;
-  private list: HTMLElement[];
+  private list: HTMLElement[] = [];
   private logo: HTMLElement;
 
   constructor(parent: HTMLElement, props: any) {
     this.parent = parent;
-    this.numberOfItems = 50;
-    this.list = [];
+    this.numberOfItems = props.numberOfItems;
 
     this.logo = createHTMLElement(
       this.parent,
       'div',
-      { id: props.id }
+      { id: props.id },
+      { type: props.type, html: props.html }
     );
 
     this.isLoaded = true;

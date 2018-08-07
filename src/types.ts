@@ -10,6 +10,7 @@ export type HTMLElementContent = {
   html?: string;
   [key: string]: string;
 };
+
 export type CanvasLine = {
   x: number;
   y: number;
@@ -18,9 +19,13 @@ export type CanvasLine = {
   newY: number;
 };
 
-export declare type ScreenSize = {
-  cw: number;
-  ch: number;
+export type AnimationObject = {
+  [key: string]: string | number | Object;
+};
+
+export type ScreenSize = {
+  w: number;
+  h: number;
 };
 
 export interface IAnimationManager {
@@ -28,7 +33,7 @@ export interface IAnimationManager {
 }
 
 export interface IAnimation {
-  isLoaded: Boolean;
+  isLoaded: boolean;
   play: Function;
   pause: Function;
 }

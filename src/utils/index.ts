@@ -4,7 +4,7 @@ export const createHTMLElement = (
   parent: HTMLElement,
   tag: string,
   attribute: HTMLElementAttributes,
-  content?: HTMLElementContent,
+  content: HTMLElementContent,
   callback?: Function):HTMLElement => {
   
   const element:HTMLElement = document.createElement(tag);

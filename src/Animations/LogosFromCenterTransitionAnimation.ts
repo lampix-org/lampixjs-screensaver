@@ -8,21 +8,22 @@ import { IAnimation, ScreenSize } from 'types';
 
 class LogosFromCenterTransitionAnimation implements IAnimation {
 
-  isLoaded: Boolean = false;
+  isLoaded: boolean = false;
   private screenSize: ScreenSize;
   private parent: HTMLElement;
-  private numberOfItems: number = 240;
+  private numberOfItems: number;
   private centerX: number;
   private centerY: number;
   private isAnimating: Boolean = false;
-  private list: HTMLElement[];
+  private list: HTMLElement[] = [];
   private logo: HTMLElement;
 
   constructor(parent:HTMLElement, props:any) {
     this.screenSize = props.screenSize;
     this.parent = parent;
-    this.centerX = this.screenSize.cw / 2;
-    this.centerY = this.screenSize.ch / 2;
+    this.centerX = this.screenSize.w / 2;
+    this.centerY = this.screenSize.h / 2;
+    this.numberOfItems = props.numberOfItems;
 
     this.logo = createHTMLElement(
       this.parent,
@@ -60,8 +61,8 @@ class LogosFromCenterTransitionAnimation implements IAnimation {
     const delay = random(1, 7);
     div.style.transition = `all ${time}s ease-in ${delay}s`;
     const angle = Math.random() * Math.PI * 2;
-    div.style.left = `${Math.sin(angle) * (this.screenSize.cw / 1.27) + this.centerX - 100}px`;
-    div.style.top = `${Math.cos(angle) * (this.screenSize.ch / 1.27) + this.centerY}px`;
+    div.style.left = `${Math.sin(angle) * (this.screenSize.w / 1.27) + this.centerX - 100}px`;
+    div.style.top = `${Math.cos(angle) * (this.screenSize.h / 1.27) + this.centerY}px`;
     div.style.width = '100px';
     setTimeout(this.resetObject.bind(this, div), (time + delay) * 1000);
   }

@@ -6,10 +6,10 @@ import { IAnimation, CanvasLine, ScreenSize } from 'types';
 
 class LinesFromCenterAnimation implements IAnimation {
 
-  isLoaded: false;
+  isLoaded: boolean = true;
   private screenSize: ScreenSize;
-  private numberOfLines: number = 240;
-  private lines: Object[];
+  private numberOfItems: number;
+  private lines: Object[] = [];
   private counter: number = 0;
   private zStep: number = 0.004;
   private centerX: number;
@@ -19,23 +19,26 @@ class LinesFromCenterAnimation implements IAnimation {
 
   constructor(parent: HTMLElement, props: any) {
     this.screenSize = props.screenSize;
-    this.centerX = this.screenSize.cw / 2;
-    this.centerY = this.screenSize.ch / 2;
+    this.centerX = this.screenSize.w / 2;
+    this.centerY = this.screenSize.h / 2;
+    this.numberOfItems = props.numberOfItems;
 
-    range(0, this.numberOfLines).forEach(() => {
-      this.lines.push(this.resetLine());
+    range(0, this.numberOfItems).forEach(() => {
+      const line:CanvasLine = { x: 0, y: 0, z: 0, newX: 0, newY: 0 };
+      this.resetLine(line);
+      this.lines.push(line);
     });
 
     const canvasHolder: HTMLCanvasElement = createHTMLCanvasElement(
       parent,
-      { width: this.screenSize.cw, height: this.screenSize.ch, id: 'screensaver-canvas' }
+      { width: this.screenSize.w, height: this.screenSize.h, id: 'screensaver-canvas' }
     );
 
     this.screenSaverCtx = canvasHolder.getContext('2d');
   }
 
   draw() {
-    this.screenSaverCtx.fillRect(0, 0, this.screenSize.cw, this.screenSize.ch);
+    this.screenSaverCtx.fillRect(0, 0, this.screenSize.w, this.screenSize.h);
     this.lines.forEach((line:CanvasLine, index) => {
       line.z -= this.zStep;
       const x = line.x / line.z;
@@ -52,23 +55,19 @@ class LinesFromCenterAnimation implements IAnimation {
       line.newX = x;
       line.newY = y;
 
-      if (line.z < this.zStep || line.newX > this.screenSize.cw || line.newY > this.screenSize.ch) {
-        line = this.resetLine();
+      if (line.z < this.zStep || line.newX > this.screenSize.w || line.newY > this.screenSize.h) {
+        this.resetLine(line);
       }
     });
     this.counter += 0.0085;
   }
 
-  private resetLine() {
-    const line:CanvasLine = {
-      x: (Math.random() * this.screenSize.cw - (this.screenSize.cw / 2)),
-      y: (Math.random() * this.screenSize.ch - (this.screenSize.ch / 2)),
-      z: 1,
-      newX: 0,
-      newY: 0
-    };
-    return line;
-
+  private resetLine(line:CanvasLine) {
+    line.x = (Math.random() * this.screenSize.w - (this.screenSize.w / 2));
+    line.y = (Math.random() * this.screenSize.h - (this.screenSize.h / 2));
+    line.z = 1;
+    line.newX = 0;
+    line.newY = 0;
   }
 
   private loop() {

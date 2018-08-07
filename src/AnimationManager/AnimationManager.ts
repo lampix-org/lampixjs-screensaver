@@ -1,6 +1,7 @@
 import {
   IAnimationManager,
-  IAnimation
+  IAnimation,
+  AnimationObject
 } from '../types';
 
 import {
@@ -15,17 +16,18 @@ import { LogosFromCenterPerspectiveAnimation } from '../Animations/LogosFromCent
 class AnimationManager implements IAnimationManager {
   
   private screensaver: HTMLElement;
-  animations: IAnimation[];
+  animations: IAnimation[] = [];
   
-  addAnimation(types: Object[]) {
+  addAnimation(types: AnimationObject[]) {
     this.screensaver = createHTMLElement(
       document.body,
       'div',
-      { id: 'screensaver' }
+      { id: 'screensaver' },
+      { type: 'none' }
     );
   
     types.forEach((type) => {
-      switch (type) {
+      switch (type.name) {
         case 'LinesFromCenter':
           this.animations.push(new LinesFromCenterAnimation(this.screensaver, type));
           break;
