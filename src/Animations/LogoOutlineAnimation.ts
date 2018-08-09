@@ -1,5 +1,4 @@
 import anime, { AnimeInstance, AnimeAnimParams } from 'animejs';
-import { createHTMLElement } from '../utils';
 import { IAnimation } from 'types';
 
 class LogoOutlineAnimation implements IAnimation{
@@ -9,14 +8,9 @@ class LogoOutlineAnimation implements IAnimation{
   private logo: HTMLElement;
   anim: AnimeInstance;
 
-  constructor(parent:HTMLElement, props: any) {
-    this.logo = createHTMLElement(
-      parent,
-      'div',
-      { id: props.id },
-      { type: props.type, url: props.url },
-      this.init.bind(this)
-    );
+  constructor(logo:HTMLElement) {
+    this.logo = logo;
+    this.init();
   }
 
   init() {

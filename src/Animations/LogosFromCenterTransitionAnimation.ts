@@ -1,38 +1,28 @@
-import { 
-  createHTMLElement,
+import {
   range,
-  random 
-} 
-from '../utils';
+  random
+} from '../utils';
 import { IAnimation, ScreenSize } from 'types';
 
 class LogosFromCenterTransitionAnimation implements IAnimation {
 
   isLoaded: boolean = false;
-  private screenSize: ScreenSize;
+  private screenSize: ScreenSize = { w: 1280, h: 800 };
   private parent: HTMLElement;
-  private numberOfItems: number;
+  private numberOfItems: number = 50;
   private centerX: number;
   private centerY: number;
   private isAnimating: Boolean = false;
   private list: HTMLElement[] = [];
   private logo: HTMLElement;
 
-  constructor(parent:HTMLElement, props:any) {
-    this.screenSize = props.screenSize;
+  constructor(parent:HTMLElement, logo:HTMLElement) {
     this.parent = parent;
+    this.logo = logo;
     this.centerX = this.screenSize.w / 2;
     this.centerY = this.screenSize.h / 2;
-    this.numberOfItems = props.numberOfItems;
-
-    this.logo = createHTMLElement(
-      this.parent,
-      'div',
-      { id: props.id },
-      { type: props.type, url: props.url },
-      this.createObjects.bind(this)
-    );
     this.isLoaded = false;
+    this.createObjects();
   }
 
   createObjects() {

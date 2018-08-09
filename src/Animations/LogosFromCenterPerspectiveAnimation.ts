@@ -1,7 +1,6 @@
-import { 
-  createHTMLElement,
+import {
   range,
-  random,
+  random
  } from '../utils';
 import { IAnimation } from 'types';
 
@@ -9,20 +8,13 @@ class LogosFromCenterPerspectiveAnimation implements IAnimation {
 
   isLoaded: boolean = false;
   private parent: HTMLElement;
-  private numberOfItems: number;
+  private numberOfItems: number = 50;
   private list: HTMLElement[] = [];
   private logo: HTMLElement;
 
-  constructor(parent: HTMLElement, props: any) {
+  constructor(parent: HTMLElement, logo:HTMLElement) {
     this.parent = parent;
-    this.numberOfItems = props.numberOfItems;
-
-    this.logo = createHTMLElement(
-      this.parent,
-      'div',
-      { id: props.id },
-      { type: props.type, html: props.html }
-    );
+    this.logo = logo;
 
     this.isLoaded = true;
     this.createObjects();

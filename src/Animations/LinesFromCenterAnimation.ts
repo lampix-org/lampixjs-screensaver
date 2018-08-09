@@ -1,14 +1,13 @@
 import {
-  range,
-  createHTMLCanvasElement,
+  range
  } from '../utils';
 import { IAnimation, CanvasLine, ScreenSize } from 'types';
 
 class LinesFromCenterAnimation implements IAnimation {
 
   isLoaded: boolean = true;
-  private screenSize: ScreenSize;
-  private numberOfItems: number;
+  private screenSize: ScreenSize = { w: 1280, h: 800 };
+  private numberOfItems: number = 50;
   private lines: Object[] = [];
   private counter: number = 0;
   private zStep: number = 0.004;
@@ -17,23 +16,15 @@ class LinesFromCenterAnimation implements IAnimation {
   private redrawing:Boolean = false;
   private screenSaverCtx: CanvasRenderingContext2D;
 
-  constructor(parent: HTMLElement, props: any) {
-    this.screenSize = props.screenSize;
+  constructor(canvasHolder: HTMLCanvasElement) {
     this.centerX = this.screenSize.w / 2;
     this.centerY = this.screenSize.h / 2;
-    this.numberOfItems = props.numberOfItems;
 
     range(0, this.numberOfItems).forEach(() => {
       const line:CanvasLine = { x: 0, y: 0, z: 0, newX: 0, newY: 0 };
       this.resetLine(line);
       this.lines.push(line);
     });
-
-    const canvasHolder: HTMLCanvasElement = createHTMLCanvasElement(
-      parent,
-      { width: this.screenSize.w, height: this.screenSize.h, id: 'screensaver-canvas' }
-    );
-
     this.screenSaverCtx = canvasHolder.getContext('2d');
   }
 
@@ -88,4 +79,3 @@ class LinesFromCenterAnimation implements IAnimation {
 }
 
 export { LinesFromCenterAnimation };
-

@@ -16,10 +16,18 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'ts-loader'
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
+      },
+      {
+        test:/\.css$/,
+        use:['style-loader','css-loader']
       }
     ]
   },
   resolve: {
-    extensions: ['.ts', 'js']
+    extensions: ['.ts', '.js']
   }
 };

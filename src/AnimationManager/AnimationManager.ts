@@ -1,12 +1,15 @@
 import {
   IAnimationManager,
-  IAnimation,
-  AnimationObject
+  IAnimation
 } from '../types';
 
 import {
-  createHTMLElement
+  createHTMLElement,
+  createHTMLCanvasElement
 } from '../utils';
+
+import lampixLogo from '../../assets/lampix-logo.svg';
+import '../../assets/style.css';
 
 import { LinesFromCenterAnimation } from '../Animations/LinesFromCenterAnimation';
 import { LogoOutlineAnimation } from '../Animations/LogoOutlineAnimation';
@@ -14,34 +17,53 @@ import { LogosFromCenterTransitionAnimation } from '../Animations/LogosFromCente
 import { LogosFromCenterPerspectiveAnimation } from '../Animations/LogosFromCenterPerspectiveAnimation';
 
 class AnimationManager implements IAnimationManager {
-  
+
   private screensaver: HTMLElement;
   animations: IAnimation[] = [];
-  
-  addAnimation(types: AnimationObject[]) {
+
+  constructor() {
+    const types: String[] =
+      ['LogoOutline', 'LogosFromCenterPerspective',
+      /*'LinesFromCenter', 'LogosFromCenterTransition'*/];
     this.screensaver = createHTMLElement(
       document.body,
       'div',
-      { id: 'screensaver' },
-      { type: 'none' }
+      { id: 'screensaver' }
     );
-  
+
+    let logo:HTMLElement;
+
     types.forEach((type) => {
-      switch (type.name) {
+      switch (type) {
         case 'LinesFromCenter':
-          this.animations.push(new LinesFromCenterAnimation(this.screensaver, type));
+          const canvasHolder: HTMLCanvasElement = createHTMLCanvasElement(
+            this.screensaver,
+            { width: 1280, height: 800, id: 'screensaver-canvas' }
+          );
+          this.animations.push(new LinesFromCenterAnimation(canvasHolder));
           break;
 
         case 'LogoOutline':
-          this.animations.push(new LogoOutlineAnimation(this.screensaver, type));
+          logo = createHTMLElement(this.screensaver, 'div', { id: 'lampix-logo' }, lampixLogo);
+          this.animations.push(new LogoOutlineAnimation(logo));
           break;
 
         case 'LogosFromCenterTransition':
-          this.animations.push(new LogosFromCenterTransitionAnimation(this.screensaver, type));
+          logo = createHTMLElement(this.screensaver, 'div', { id: 'lampix-simple-logo' });
+          this.animations.push(new LogosFromCenterTransitionAnimation(this.screensaver, logo));
           break;
 
         case 'LogosFromCenterPerspective':
-          this.animations.push(new LogosFromCenterPerspectiveAnimation(this.screensaver, type));
+          logo = createHTMLElement(
+            this.screensaver,
+            'div',
+            { id: 'css-logo' },
+            `<div id="t" class="arrow"></div>
+             <div id="r" class="arrow"></div>
+             <div id="b" class="arrow"></div>
+             <div id="l" class="arrow"></div>`
+          );
+          this.animations.push(new LogosFromCenterPerspectiveAnimation(this.screensaver, logo));
           break;
 
         default:
@@ -70,4 +92,3 @@ class AnimationManager implements IAnimationManager {
 }
 
 export { AnimationManager };
-
