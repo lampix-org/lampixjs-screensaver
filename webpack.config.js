@@ -7,8 +7,8 @@ module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.ts'),
   output: {
     path: path.resolve(__dirname, 'lib'),
-    filename: 'lampix.js',
-    library: 'lampix',
+    filename: 'lampix-screensaver.js',
+    library: ['lampix', 'screensaver'],
     libraryTarget: 'umd'
   },
   module: {

@@ -2,8 +2,8 @@
   "name": "@lampix/screensaver",
   "version": "0.1.0",
   "description": "",
-  "main": "lib/lampix.js",
-  "module": "lib/lampix.js",
+  "main": "lib/lampix-screensaver.js",
+  "module": "lib/lampix-screensaver.js",
   "types": "lib/index.d.ts",
   "files": [
     "assets",
