@@ -16,12 +16,17 @@ import { LogoOutlineAnimation } from '../Animations/LogoOutlineAnimation';
 import { LogosFromCenterTransitionAnimation } from '../Animations/LogosFromCenterTransitionAnimation';
 import { LogosFromCenterPerspectiveAnimation } from '../Animations/LogosFromCenterPerspectiveAnimation';
 
+import depthClassifier from '../utils/depthClassifier';
+
 class AnimationManager implements IAnimationManager {
 
   private screensaver: HTMLElement;
+  private timeout:number;
+  private seconds:number;
   animations: IAnimation[] = [];
 
-  constructor() {
+  initialize = (seconds: number) => {
+    this.seconds = seconds;
     const types: String[] =
       ['LogoOutline', 'LogosFromCenterPerspective',
       /*'LinesFromCenter', 'LogosFromCenterTransition'*/];
@@ -70,9 +75,19 @@ class AnimationManager implements IAnimationManager {
           break;
       }
     });
+
+    this.refreshTimer();
+    depthClassifier(this.pause);
+  }
+
+  refreshTimer = () => {
+    clearTimeout(this.timeout);
+    this.timeout = window.setTimeout(() => this.play(), this.seconds * 1000);
   }
 
   play = () => {
+    // TBD: preserve the state of registered areas, unregisters them
+    console.log('screensaver play');
     this.screensaver.style.display = 'block';
     this.animations.forEach((animation) => {
       if (animation.isLoaded) {
@@ -82,6 +97,9 @@ class AnimationManager implements IAnimationManager {
   }
 
   pause = () => {
+    // TBD: reregisters the saved areas
+    console.log('screensaver pause');
+    this.refreshTimer();
     this.screensaver.style.display = 'none';
     this.animations.forEach((animation) => {
       if (animation.isLoaded) {
