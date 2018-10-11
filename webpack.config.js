@@ -1,4 +1,6 @@
 const path = require('path');
+const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin');
+
 
 module.exports = {
   context: __dirname,
@@ -29,5 +31,8 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js']
-  }
+  },
+  plugins: [
+    new PeerDepsExternalsPlugin()
+  ]
 };
