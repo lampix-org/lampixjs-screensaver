@@ -9,7 +9,7 @@ const depthClassifier = (callback:Function) => {
       // onClassification: (detectedObjects:any) => {
       //   detectedObjects.forEach((obj:any) => console.log('classification', obj));
       // },
-      onLocation: () => callback()
+      onLocation: callback
     };
     lampix.getLampixInfo().then((data: any) => console.log('Lampix info: ', data));
     lampix.watchers.add(watcher).then(([result]:any) => resolve(result));
