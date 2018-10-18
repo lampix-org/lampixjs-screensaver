@@ -15,6 +15,7 @@
   "scripts": {
     "docs": "typedoc --out docs src/index.ts --name Lampix.js --theme minimal --readme README.md",
     "build": "shx rm -rf ./lib && webpack",
+    "build:dev": "npm i @lampix/core@next --no-save && shx rm -rf ./lib && webpack && npm link",
     "build:docker": "docker run -it --rm --name lampixjs-lib -v $(shx pwd):/usr/lampixjs-sdk -w /usr/lampixjs-sdk node:8 npm run build",
     "prepublishOnly": "npm run build",
     "precommit": "lint-staged"
@@ -51,6 +52,6 @@
     "animejs": "2.2.0"
   },
   "peerDependencies": {
-    "@lampix/core": "1.0.0-alpha.4"
+    "@lampix/core": "1.0.0-alpha.7"
   }
 }
