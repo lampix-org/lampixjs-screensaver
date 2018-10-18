@@ -9,7 +9,7 @@ export const createHTMLElement = (
   const element:HTMLElement = document.createElement(tag);
   Object.keys(attribute).forEach((key) => { element.setAttribute(key, `${attribute[key]}`); });
 
-  element.innerHTML = content;
+  if (content) element.innerHTML = content;
   parent.appendChild(element);
   return element;
 };

@@ -1,3 +1,5 @@
+import lampix from '@lampix/core';
+
 import {
   IAnimationManager,
   IAnimation
@@ -23,6 +25,7 @@ class AnimationManager implements IAnimationManager {
   private screensaver: HTMLElement;
   private timeout:number;
   private seconds:number;
+  private watcher: any;
   animations: IAnimation[] = [];
 
   initialize = (seconds: number) => {
@@ -77,7 +80,7 @@ class AnimationManager implements IAnimationManager {
     });
 
     this.refreshTimer();
-    depthClassifier(this.pause);
+    depthClassifier(this.pause).then(watcher => this.watcher = watcher);
   }
 
   refreshTimer = () => {
@@ -86,10 +89,9 @@ class AnimationManager implements IAnimationManager {
   }
 
   play = () => {
-    // TBD: preserve the state of registered areas, unregisters them
-    console.log('screensaver play');
+    lampix.watchers.pauseAll().then(() => this.watcher.resume());
     this.screensaver.style.display = 'block';
-    this.animations.forEach((animation) => {
+    this.animations.forEach(animation => {
       if (animation.isLoaded) {
         animation.play();
       }
@@ -97,11 +99,10 @@ class AnimationManager implements IAnimationManager {
   }
 
   pause = () => {
-    // TBD: reregisters the saved areas
-    console.log('screensaver pause');
+    lampix.watchers.resumeAll();
     this.refreshTimer();
     this.screensaver.style.display = 'none';
-    this.animations.forEach((animation) => {
+    this.animations.forEach(animation => {
       if (animation.isLoaded) {
         animation.pause();
       }
