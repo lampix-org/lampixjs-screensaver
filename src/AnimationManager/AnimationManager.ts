@@ -28,7 +28,7 @@ class AnimationManager implements IAnimationManager {
   private watcher: any;
   animations: IAnimation[] = [];
 
-  initialize = (seconds: number) => {
+  initialize = (seconds: number = 90) => {
     this.seconds = seconds;
     const types: String[] =
       ['LogoOutline', 'LogosFromCenterPerspective',
