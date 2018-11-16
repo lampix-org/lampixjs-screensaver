@@ -1,6 +1,6 @@
 {
   "name": "@lampix/screensaver",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-beta.0",
   "description": "",
   "main": "lib/lampix-screensaver.js",
   "module": "lib/lampix-screensaver.js",
