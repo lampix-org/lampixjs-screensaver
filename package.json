@@ -48,11 +48,10 @@
     ]
   },
   "dependencies": {
-    "@lampix/core": "1.0.0-beta.0",
     "@types/animejs": "2.0.0",
     "animejs": "2.2.0"
   },
   "peerDependencies": {
-    "@lampix/core": "1.0.0-alpha.9"
+    "@lampix/core": "1.0.0-beta.0"
   }
 }
