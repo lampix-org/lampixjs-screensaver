@@ -1,8 +1,10 @@
 language: node_js
 node_js: '10'
 
-install:
+before_install:
   - npm i --no-save @lampix/core
+
+install:
   - npm ci
 
 deploy:
