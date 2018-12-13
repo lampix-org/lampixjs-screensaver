@@ -1,0 +1,15 @@
+language: node_js
+node_js: '10'
+
+deploy:
+  provider: npm
+  email: dbalaban@lampix.co
+  skip_cleanup: true
+  on:
+    repo: lampix-org/lampixjs-screensaver
+    all_branches: true
+  api_key:
+    secure: ZWRA2frL84FSSpWZSK7tQ7RG95NwrqI0Q9VbJJARGqe5XK3jMrj8u63GC83TsQ9ussMsCOXwn1C14rF16VlMbyuUtiXkhUkZNyOzWzeOQ2bOSkkylgVfYKXJmstIOG8uyUaYffZAYmQR3ldE/2Brv5l7bU6SvG3ekR/nMMs8YKxCY6AgV+B7ukdhrWbXlrVoAtn72I9HyeIXONPnhvaAPzmM4+9QJvjTk4Wf6v9SFqaBZ050OEpPezREUPX2slXgm4dxclwHztPjsKS/Af6xG1wnfk/U2v/o42LZ89Us01i6DEEaoVg/TClMYcWQ1neW1uCrtn3CcHF7XJmbTXA6e1pypb+PJa0BOQStkebA5jLEUjERn+Ic3nCtva0tJ4MkiUu99nKqdfzRPneTvU1suGTCRGMztgLJfMQiO29+V91LDP5EHxcH5ubtFvCDDhEJlfCK98nGBr6vBCELvzxzOgfocLNsvPChtfHrwTTZJybCyxwq55+oOmlSpYQFAMessODcp3g279Nppdpxwwqgic7DQ1RICAm/BrIgLETv08DIvfStT5liaWx2iPDUmJMzFIAGGfXWAtLndrgCDwa9cGOfxboJ/7Hn+p5iSwGlCdWYhDgeBFL/+8Fy8aWXt/tPLwPGQuH9p0BYuWKYvb7M/12NDThT89PXEHPBUKRoJkE=
+branches:
+  only:
+  - "/^release\\/\\d+\\.\\d+\\.\\d+$/"
