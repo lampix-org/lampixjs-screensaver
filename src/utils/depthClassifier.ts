@@ -5,7 +5,9 @@ const depthClassifier = (callback:Function) => {
     const watcher:any = {
       name: 'DepthClassifier',
       shape: lampix.helpers.rectangle(0, 0, 1280, 800),
-      params: {},
+      params: {
+        frames_until_stable: 1
+      },
       onClassification: callback,
     };
     lampix.watchers.add(watcher).then(([result]:any) => resolve(result));
